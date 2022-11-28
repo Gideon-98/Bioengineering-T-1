@@ -44,19 +44,19 @@ S3x=sum(Mk3x);
 S3y=sum(Mk3y);
 S3z=sum(Mk3z);
 
-%segment L1 = acromion - greater trochanter
+%L1 = acromion - greater trochanter
 L1x=(S0x-S1x)/1847; 
 L1y=(S0y-S1y)/1847;
 L1z=(S0z-S1z)/1847;
 %L1=L1y because we disregard the swings in the x and y axis
 
-%segmento L2 = greater trochanter - lateral epicondyle
+%L2 = greater trochanter - lateral epicondyle
 L2x=(S1x-S2x)/1847;
 L2y=(S1y-S2y)/1847;
 L2z=(S1z-S2z)/1847;
 %L2=L2y because we disregard the swings in the x and y axis
 
-%segmento L3 = lateral epicondyle - lateral malleolus
+%L3 = lateral epicondyle - lateral malleolus
 L3x=(S2x-S3x)/1847;
 L3y=(S2y-S3y)/1847;
 L3z=(S2z-S3z)/1847;
