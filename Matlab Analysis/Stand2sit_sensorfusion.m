@@ -3,31 +3,31 @@
 
 g = 9.805;
 
-%% STEREOFOTOGRAMMETRIA
+%% STEREOPHOTOGRAMMETRY
 load stand2sit2standMK.txt
-%Vettori delle coordinate del marker0 sull'acromion
+%Coordinates vectors of the marker0 on acromiom
 Mk0x=stand2sit2standMK(:,3);
 Mk0y=stand2sit2standMK(:,4);
 Mk0z=stand2sit2standMK(:,5);
 
-%Vettori delle coordinate del marker1 sul grande trocantere
+%Coordinates vectors of the marker1 on great trochanter
 Mk1x=stand2sit2standMK(:,6);
 Mk1y=stand2sit2standMK(:,7);
 Mk1z=stand2sit2standMK(:,8);
 
-%Vettori delle coordinate del marker2 sull'epicondilo laterale
+%Coordinates vectors of the marker2 on lateral epicondyle
 Mk2x=stand2sit2standMK(:,9);
 Mk2y=stand2sit2standMK(:,10);
 Mk2z=stand2sit2standMK(:,11);
 
-%Vettori delle coordinate del marker3 sul malleolo laterale
+%Coordinates vectors of the marker3 on lateral malleolus
 Mk3x=stand2sit2standMK(:,12);
 Mk3y=stand2sit2standMK(:,13);
 Mk3z=stand2sit2standMK(:,14);
 
-t=stand2sit2standMK(:,2); %vettore degli istanti di tempo in cui sono prese le misurazioni 
+t=stand2sit2standMK(:,2); %time vector during the measurements
 
-%Consideriamo costante lo spostamento lungo l'asse x
+%Consider constant the move on the x axis
 L1x= Mk0x-Mk1x;
 L1y= Mk0y-Mk1y;
 L1z= Mk0z-Mk1z;
@@ -48,25 +48,25 @@ Teta3=(180/pi)*(atan2(-L3x,L3y));
 figure(1)
 subplot(3,1,1);
 plot(t,Teta1);
-title('Angolo acromion-trocantere');
-xlabel('Tempo[s]');
-ylabel('Ampiezza[°]');
+title('Angle acromion-trochanter');
+xlabel('Time[s]');
+ylabel('Degree[ï¿½]');
 subplot(3,1,2);
 plot(t,Teta2);
-title('Angolo trocantere-epicondilo');
-xlabel('Tempo[s]');
-ylabel('Ampiezza[°]');
+title('Angle trochanter-epicondyle');
+xlabel('Time[s]');
+ylabel('Degree[ï¿½]');
 subplot(3,1,3);
 plot(t,Teta3);
-title('Angolo epicondilo-malleolo');
-xlabel('Tempo[s]');
-ylabel('Ampiezza[°]');
+title('Angle epicondyle-malleolus');
+xlabel('Time[s]');
+ylabel('Degree[ï¿½]');
 
 figure(2) 
 plot(t,Mk0y) 
-title('Coordinata y acromion');
-xlabel('Tempo[s]');
-ylabel('Lunghezza[mm]');
+title('Coordinate y acromion');
+xlabel('Time[s]');
+ylabel('Lenght[mm]');
 
 %% IMU
 load stand2sit2stand.mat
@@ -94,21 +94,21 @@ f_g=F;
 figure (3)
 subplot(2,1,1);
 plot(t_imu,A1y,t_imu,f_g)
-title('Accelerazione y IMU lombare');
-xlabel('Tempo[s]');
-ylabel('Accellerazione[mm/s^2]');
+title('Accelleration y IMU lombar');
+xlabel('Time[s]');
+ylabel('Accelleration[mm/s^2]');
 legend('IMU','Gravity Force');
 subplot(2,1,2);
 plot(t_imu,A2y,t_imu,f_g)
-title('Accelerazione y IMU coscia');
-xlabel('Tempo[s]');
-ylabel('Accellerazione[mm/s^2]');
+title('Accelleration y IMU thigh');
+xlabel('Time[s]');
+ylabel('Accelleration[mm/s^2]');
 legend('IMU','Gravity Force');
 
 %% ALGORITMO PER TROVARE SIT DOWN E SIT OFF
 % si suppone che nell'istante sitdown l'accelerazione della IMU a livello
 % della coscia Ay2 converga verso a g(per proof mass) mentre nell'istante sit off
-% l'accelerazione Ay1 misurata dalla imu sulla zona lombare sarà minima
+% l'accelerazione Ay1 misurata dalla imu sulla zona lombare sarï¿½ minima
 
 %obbiettivo: creare una matrice con in una colonna tutti gli istanti
 %temporali, in quella successiva tutti i valori superiori a 9.81 con
@@ -116,14 +116,14 @@ legend('IMU','Gravity Force');
 %l'istante iniziale corrisponde con il sit down e quello finale con il sit
 %off 
 
-%% ALGORITMO PER ANALIZZARE SITDOWN SIT UP NB NON FARE CON STEREO
+%% ALGORITMO PER ANALIZZARE SITDOWN SIT UP ANALYSIS NB NON FARE CON STEREO
 
 
 %{
-se imposto un periodo di tempo e creo una matrice tale per cui gli istanti
-con un valore maggiore di 9.81 valgono 1 e i valori minori di 9.81 valgono
-zero per ogni periodo temporale posso segnare come istante sit down il
-primo valore 1 e come istante sit off l'ultimo valore 1
+If we set a time period and create a matrix such that instants
+with a value greater than 9.81 are worth 1 and values less than 9.81 are worth
+zero for each time period I can mark as sit down instant the
+first value 1 and as sit off instant the last value 1
 %}
 %creo matrice ove caricare gli istanti superiori a g
 Mat_ist=zeros(8605,1); 
@@ -184,9 +184,9 @@ teta1_imu=(180/pi)*asin(-A1z/g);
 teta1_imu=movmean(teta1_imu,50)
 figure(4)
 plot(t,Teta1,t_imu,teta1_imu)
-title('Angolo acromion-trocantere');
+title('Angle acromion-trochanter');
 xlabel('Tempo[s]');
-ylabel('Ampiezza[°]');
+ylabel('Degree[ï¿½]');
 legend('Teta','Teta Filtrato');
 
 

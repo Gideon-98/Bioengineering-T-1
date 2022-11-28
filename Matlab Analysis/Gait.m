@@ -1,61 +1,60 @@
-%CAMMINO
+%Gait
 load cammino.txt
 
-%Nel test eseguito si considerano solo i valori temporali in cui si hanno
-%le coordinate di tutti i marker, dato che il soggetto in alcuni istanti
-%esce dal volume di calibrazione 
+%In the exectued test we consider only the time values when we have the coordinates of all the marker, 
+%this because the human subject sometimes exit from the calibrated space
 
-%Vettori delle coordinate del marker0 sull'acromion
+%Coordinates vectors of marker0 on acromion
 Mk0x=cammino(713:1883,3);
 Mk0y=cammino(713:1883,4);
 Mk0z=cammino(713:1883,5);
 
-%Vettori delle coordinate del marker1 sul grande trocantere
+%Coordinates vectors of marker1 on the great trochanter
 Mk1x=cammino(713:1883,6);
 Mk1y=cammino(713:1883,7);
 Mk1z=cammino(713:1883,8);
 
-%Vettori delle coordinate del marker2 sull'epicondilo laterale
+%Coordinates vectors of marker2 on the lateral epicondyle
 Mk2x=cammino(713:1883,9);
 Mk2y=cammino(713:1883,10);
 Mk2z=cammino(713:1883,11);
 
-%Vettori delle coordinate del marker3 sul malleolo laterale
+%Coordinates vectors of marker3 on the lateral malleolus
 Mk3x=cammino(713:1883,12);
 Mk3y=cammino(713:1883,13);
 Mk3z=cammino(713:1883,14);
 
-t=cammino(713:1883,2); %vettore degli istanti di tempo in cui sono prese le misurazioni
+t=cammino(713:1883,2); %time vector during the measurements
 
-%Consideriamo costante lo spostamento lungo l'asse x
-L1y= Mk0y-Mk1y;%distanza acromiom-trocantere y
-L1z= Mk0z-Mk1z;%distanza acromiom-trocantere Z
-Teta1=(180/pi)*(atan2(-L1z,L1y));%angolo acromiom-trocantere
+%Consider constant the move on the x axis
+L1y= Mk0y-Mk1y;%distance acromiom-trochanter y
+L1z= Mk0z-Mk1z;%distance acromiom-trochanter Z
+Teta1=(180/pi)*(atan2(-L1z,L1y));%acromiom-trochanter angle
 
-L2y= Mk1y-Mk2y;%distanza trocantere-epicondilo y
-L2z= Mk1z-Mk2z;%distanza trocantere-epicondilo z
-Teta2=(180/pi)*(atan2(L2z,L2y));%angolo trocantere-epicondilo
+L2y= Mk1y-Mk2y;%distance trochanter-epicondyle y
+L2z= Mk1z-Mk2z;%distance trochanter-epicondyle z
+Teta2=(180/pi)*(atan2(L2z,L2y));%trochanter-epicondyle angle
 
-L3y= Mk2y-Mk3y;%distanza epicondilo-malleolo y
-L3z= Mk2z-Mk3z;%distanza epicondilo-malleolo z
-Teta3=(180/pi)*(atan2(-L3z,L3y));%angolo epicondilo-malleolo
+L3y= Mk2y-Mk3y;%distance epicondyle-malleoulus y
+L3z= Mk2z-Mk3z;%distance epicondyle-malleoulus z
+Teta3=(180/pi)*(atan2(-L3z,L3y));%epicondyle-malleoulus angle
 
 figure(1)
 subplot(3,1,1);
 plot(t,Teta1);
-title('Angolo acromion-trocantere');
-xlabel('Tempo[s]');
-ylabel('Ampiezza[°]');
+title('Acromion-trocantere angle');
+xlabel('Time[s]');
+ylabel('Degree[ï¿½]');
 subplot(3,1,2);
 plot(t,Teta2);
-title('Angolo trocantere-epicondilo');
-xlabel('Tempo[s]');
-ylabel('Ampiezza[°]');
+title('Trochanter-epicondyle angle');
+xlabel('Time[s]');
+ylabel('Degree[ï¿½]');
 subplot(3,1,3);
 plot(t,Teta3);
-title('Angolo epicondilo-malleolo');
-xlabel('Tempo[s]');
-ylabel('Ampiezza[°]');
+title('Epicondyle-malleoulus angle');
+xlabel('Time[s]');
+ylabel('Degree[ï¿½]');
 
 
 
