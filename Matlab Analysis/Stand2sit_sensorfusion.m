@@ -110,14 +110,10 @@ legend('IMU','Gravity Force');
 % della coscia Ay2 converga verso a g(per proof mass) mentre nell'istante sit off
 % l'accelerazione Ay1 misurata dalla imu sulla zona lombare sar� minima
 
-%obbiettivo: creare una matrice con in una colonna tutti gli istanti
-%temporali, in quella successiva tutti i valori superiori a 9.81 con
-%l'obbiettivo di dividerli in intervalli temporali. per ognuno di questi
-%l'istante iniziale corrisponde con il sit down e quello finale con il sit
-%off 
+%GOAL: create a matrix with every moments of time in a column and every values bigger than 9.81 on the other column 
+%to divide them by moments of time for every the initial time matches with the sit down and the final one with the sit up
 
-%% ALGORITMO PER ANALIZZARE SITDOWN SIT UP ANALYSIS NB NON FARE CON STEREO
-
+%% SITDOWN SIT UP ANALYSIS (DON'T DO THAT WITH STEREO)
 
 %{
 If we set a time period and create a matrix such that instants
@@ -125,7 +121,7 @@ with a value greater than 9.81 are worth 1 and values less than 9.81 are worth
 zero for each time period I can mark as sit down instant the
 first value 1 and as sit off instant the last value 1
 %}
-%creo matrice ove caricare gli istanti superiori a g
+%create the matrix with the moments of times biggers than 9.81
 Mat_ist=zeros(8605,1); 
 sit_down=zeros(6,1);
 sit_off=zeros(6,1);
@@ -135,7 +131,7 @@ ind_in=15*128;
 ind_fin=20*128;
 periodo=(ind_fin-ind_in);
 
-%carico i valori in Mind
+%upload the values in Mind
 
 for K=1:1:6
     Mind(K,1)=ind_in+(K-1)*periodo;
@@ -178,7 +174,7 @@ t_s_off=s_off/128
 t_s_down=s_down/128
 
 
-%% terzo punto
+%% third point
 %g1(imu)= derivata di teta1
 teta1_imu=(180/pi)*asin(-A1z/g);
 teta1_imu=movmean(teta1_imu,50)
@@ -190,8 +186,8 @@ ylabel('Degree[�]');
 legend('Teta','Teta Filtrato');
 
 
-%% tentativo con metodo lungo
-syms teta1(t_imu) teta2(t_imu) acc1(t_imu) acc2(t_imu) acc0y(t_imu) acc0x(t_imu) g1(t_imu) g2(t_imu)
+%% chance with longer method 
+%syms teta1(t_imu) teta2(t_imu) acc1(t_imu) acc2(t_imu) acc0y(t_imu) acc0x(t_imu) g1(t_imu) g2(t_imu)
 %{
 %inizio a scrivere il sistema
 % devo sapere derivate
@@ -204,7 +200,3 @@ ode1 = diff(u) == 3*u + 4*v;
 ode2 = diff(v) == -4*u + 3*v;
 odes = [ode1; ode2]
 %}
-
-
-
-
